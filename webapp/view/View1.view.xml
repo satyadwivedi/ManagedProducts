@@ -1,0 +1,228 @@
+<mvc:View controllerName="com.aricord.products.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}" >
+        <content>
+        	<Button icon="sap-icon://create" text = "Introduce new product" press="onCreateProduct"/>
+        <IconTabBar id="idIconTabBar5" class="sapUiResponsiveContentPadding">
+            <items>
+            <IconTabFilter id = "idIconTabProduct"
+                showAll="true"
+                count="{C>/0/count}"
+                text="Products"
+                key="All" >
+             <Table id="idProductsTable"
+                    inset="false"
+                    mode="MultiSelect"
+                    items="{
+                        path: '/Products',
+                        sorter: {
+                            path: 'Name'
+
+                        },
+                        parameters: { 'expand': 'Supplier' } 
+                    }">
+                    
+                    <columns>
+                        <Column width="15em">
+                            <Text text="Product" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true"  width="15em">
+                            <Text text="Supplier" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true" width="15em" >
+                            <Text text="Price" />
+                        </Column>
+                        <Column width="15em">
+                            <Text text="Release Date" />
+                        </Column>
+                        <Column width="15em" hAlign="Center">
+                            <Text text="Rating" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem vAlign="Middle" type="Navigation" press="onPress">
+                            <cells>
+                                <ObjectIdentifier
+                                    title="{ID}"
+                                    text="{Name} - {Description}"/>
+                                <Text text="{Supplier/Name}" />
+                                
+                                <Text text="{Price} EUR" />
+                                <Text text="{ReleaseDate} PC" />
+                                <Text text="{Rating} PC "/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+					
+				</IconTabFilter>
+				<IconTabSeparator />
+				<IconTabFilter
+					icon="sap-icon://sys-enter"
+					iconColor="Positive"
+					count="53"
+					text="Plenty in Stoc..."
+					key="Ok" >    
+                <Table id="idProductsTable2"
+                    inset="false"
+                    mode="MultiSelect"
+                    items="{
+                        path: '/Products',
+                        sorter: {
+                            path: 'ProductName'
+
+                        },
+                        parameters: { 'expand': 'Supplier' },
+                        filters: [{ path : 'UnitsInStock', operator : 'GE', value1 : 21 }]
+                    }">
+                    
+                    <columns>
+                        <Column width="15em">
+                            <Text text="TableNameColumnTitle" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true"  width="15em">
+                            <Text text="Supplier" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true" width="15em" >
+                            <Text text="Price" />
+                        </Column>
+                        <Column width="15em">
+                            <Text text="Units Ordered" />
+                        </Column>
+                        <Column width="15em" hAlign="Center">
+                            <Text text="Units in Stock" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem vAlign="Middle" type="Navigation" press="onPress">
+                            <cells>
+                                <ObjectIdentifier
+                                    title="{ProductName}"
+                                    text="{ProductID}"/>
+                                <Text text="{Supplier/CompanyName}" />
+                                
+                                <Text text="{UnitPrice} EUR" />
+                                <Text text="{UnitsOnOrder} PC" />
+                                <Text text="{UnitsInStock} PC  >"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                </IconTabFilter>
+				<IconTabFilter
+					icon="sap-icon://warning"
+					iconColor="Critical"
+					count="51"
+					text="Shortage"
+					key="Heavy" >
+            <Table id="idProductsTable3"
+                    inset="false"
+                    mode="MultiSelect"
+                    items="{
+                        path: '/Products',
+                        sorter: {
+                            path: 'ProductName'
+
+                        },
+                        parameters: { 'expand': 'Supplier' },
+                        filters: [{ path : 'UnitsInStock', operator : 'LE', value1 : 20 }]
+                    }">
+                    
+                    <columns>
+                        <Column width="15em">
+                            <Text text="TableNameColumnTitle" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true"  width="15em">
+                            <Text text="Supplier" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true" width="15em" >
+                            <Text text="Price" />
+                        </Column>
+                        <Column width="15em">
+                            <Text text="Units Ordered" />
+                        </Column>
+                        <Column width="15em" hAlign="Center">
+                            <Text text="Units in Stock" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem vAlign="Middle" type="Navigation" press="onPress">
+                            <cells>
+                                <ObjectIdentifier
+                                    title="{ProductName}"
+                                    text="{ProductID}"/>
+                                <Text text="{Supplier/CompanyName}" />
+                                
+                                <Text text="{UnitPrice} EUR" />
+                                <Text text="{UnitsOnOrder} PC" />
+                                <Text text="{UnitsInStock} PC  >"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                </IconTabFilter>
+				<IconTabFilter
+					icon="sap-icon://message-error"
+					iconColor="Negative"
+					count="19"
+					text="Out of Stock"
+					key="Overweight">
+            <Table id="idProductsTable4"
+                    inset="false"
+                    mode="MultiSelect"
+                    items="{
+                        path: '/Products',
+                        sorter: {
+                            path: 'ProductName'
+
+                        },
+                        parameters: { 'expand': 'Supplier' },
+                        filters: [{ path : 'UnitsInStock', operator : 'EQ', value1 : 0 }]
+                    }">
+                    
+                    <columns>
+                        <Column width="15em">
+                            <Text text="TableNameColumnTitle" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true"  width="15em">
+                            <Text text="Supplier" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true" width="15em" >
+                            <Text text="Price" />
+                        </Column>
+                        <Column width="15em">
+                            <Text text="Units Ordered" />
+                        </Column>
+                        <Column width="15em" hAlign="Center">
+                            <Text text="Units in Stock" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem vAlign="Middle" type="Navigation" press="onPress">
+                            <cells>
+                                <ObjectIdentifier
+                                    title="{ProductName}"
+                                    text="{ProductID}"/>
+                                <Text text="{Supplier/CompanyName}" />
+                                
+                                <Text text="{UnitPrice} EUR" />
+                                <Text text="{UnitsOnOrder} PC" />
+                                <Text text="{UnitsInStock} PC  >"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                </IconTabFilter>
+			</items>
+		</IconTabBar>
+    </content>
+    <footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Order Product" press="onOrder"/>
+				<Button type="Reject" text="Remove Product" press="onRemove"/>
+			</OverflowToolbar>
+		</footer>
+    </Page>
+</mvc:View>

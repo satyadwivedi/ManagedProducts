@@ -1,0 +1,11 @@
+<mvc:View controllerName="com.aricord.products.controller.Details"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+   <Page title="this is detail page" navButtonPress="onBack" >
+   <content>
+   <Label text="this is a label "> </Label>
+   </content>
+    
+   </Page>
+</mvc:View>
