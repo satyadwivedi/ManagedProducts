@@ -5,12 +5,13 @@ sap.ui.define([
     "sap/m/Dialog",
     "sap/m/StandardListItem",
     "sap/m/Button",
-    "sap/m/List"
+    "sap/m/List",
+    "sap/ui/core/Fragment"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageToast, JSONModel, Dialog, StandardListItem, Button, List) {
+    function (Controller, MessageToast, JSONModel, Dialog, StandardListItem, Button, List, Fragment) {
         "use strict";
 
         return Controller.extend("com.aricord.products.controller.View1", {
@@ -47,7 +48,7 @@ sap.ui.define([
                 })
             },
 
-            onCreate: function(oEvent) {
+            onRemove: function(oEvent) {
                 const oModel = this.getOwnerComponent().getModel()
                 
                 let oMainTable = this.getView().byId("idProductsTable");
@@ -85,27 +86,60 @@ sap.ui.define([
                 }) 
             },
 
-            onCreateProduct: function () {
-                if (!this.oFixedSizeDialog) {
-                    this.oFixedSizeDialog = new Dialog({
-                        title: "Create New Product",
-                        contentWidth: "550px",
-                        contentHeight: "300px",
-                        content: [],
-                        endButton: new Button({
-                            text: "Close",
-                            press: function () {
-                                this.oFixedSizeDialog.close();
-                            }.bind(this)
-                        })
+            
+            onCreate: function () {
+                //sample payload
+                /*
+                    {
+                        "ID": 11,
+                        "Name": "Maggi",
+                        "Description": "Nooddlesss",
+                        "ReleaseDate": "2014-01-01T00:00:00",
+                        "DiscontinuedDate": null,
+                        "Rating": 5,
+                        "Price": "2.4",
+                        "Category": {
+                            "ID": 1,
+                            "Name":"Food"
+                        },
+                        "Supplier": {
+                            "ID": 1,
+                            "Name": "Tokyo Traders"
+                        }
+                    }
+
+                */
+
+                    
+
+
+               
+            },
+            
+
+            onCreateProduct: function (oEvent) {
+                var oView = this.getView();
+                if (!this._pDialog) {
+                    this._pDialog = Fragment.load({
+                        id: oView.getId(),
+                        name: "com.aricord.products.view.createProduct",
+                        controller: this
+                    }).then(function (oDialog){
+                        return oDialog;
                     });
-    
-                    //to get access to the controller's model
-                    this.getView().addDependent(this.oFixedSizeDialog);
                 }
     
-                this.oFixedSizeDialog.open();
+                this._pDialog.then(function(oDialog){
+                    oDialog.open();
+                }.bind(this));
             },
+
+            onClose: function(oEvent) {
+                this._pDialog.then(function(a){
+                    a.close();
+                })
+            }
+
 
         });
     });
