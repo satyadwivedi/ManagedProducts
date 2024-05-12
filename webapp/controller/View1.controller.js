@@ -6,12 +6,13 @@ sap.ui.define([
     "sap/m/StandardListItem",
     "sap/m/Button",
     "sap/m/List",
-    "sap/ui/core/Fragment"
+    "sap/ui/core/Fragment",
+    "sap/ui/core/BusyIndicator"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageToast, JSONModel, Dialog, StandardListItem, Button, List, Fragment) {
+    function (Controller, MessageToast, JSONModel, Dialog, StandardListItem, Button, List, Fragment, BusyIndicator) {
         "use strict";
 
         return Controller.extend("com.aricord.products.controller.View1", {
@@ -110,7 +111,61 @@ sap.ui.define([
 
                 */
 
-                    
+                let aTableData =  this.getView().byId("idProductsTable").getItems();
+                let sID = aTableData.length + 1;
+
+                // for(let i = 0; i < aTableData.length; i++  ){
+
+                // }
+
+                let ViewId = this.getView().getId()
+                 
+                let sName = sap.ui.core.Fragment.byId(ViewId, "idProdName").getValue();
+                let sDesc = sap.ui.core.Fragment.byId(ViewId, "idProdDesc").getValue();    
+                let date1 = sap.ui.core.Fragment.byId(ViewId, "idDate").getDateValue();    
+                let date2 = sap.ui.core.Fragment.byId(ViewId, "idDate").getValue();
+                let price = sap.ui.core.Fragment.byId(ViewId, "idPrice").getValue();
+                let rating = sap.ui.core.Fragment.byId(ViewId, "idRating").getValue();    
+
+
+
+                let oProduct = {
+                        "ID": sID,
+                        "Name": sName,
+                        "Description":sDesc,
+                        "ReleaseDate": "2014-01-01T00:00:00",
+                        "DiscontinuedDate": null,
+                        "Rating": Number(rating),
+                        "Price": price,
+                        "Category": {
+                            "ID": 1,
+                            "Name":"Food"
+                        },
+                        "Supplier": {
+                            "ID": 1,
+                            "Name": "Tokyo Traders"
+                        }
+
+                 }
+
+                const oModel = this.getOwnerComponent().getModel()  
+                const that = this;
+                 
+               // const oBussy = new BusyIndicator({text:'creating new product please wait!!'})
+               // oBussy.setBusy(true)
+                oModel.create("/Products", oProduct,  {
+                    success: function(odata, oRespinse ) {
+                      //  oBussy.setBusy(false)
+                        console.log('Product created ')
+                        MessageToast.show('Product created');
+                        that.onClose()
+                    },
+                    error: function(oError) {
+                       // oBussy.setBusy(false)
+                        console.log('Error in product creation ', oError)
+                        that.onClose()
+                    }
+                })
 
 
                
