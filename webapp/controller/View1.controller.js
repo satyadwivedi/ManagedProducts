@@ -30,6 +30,8 @@ sap.ui.define([
             },
 
             // delete product
+            
+            /*
             onRemove: function(oEvent) {
                 const oModel = this.getOwnerComponent().getModel()
                 
@@ -48,6 +50,7 @@ sap.ui.define([
                     }
                 })
             },
+            */
 
             onRemove: function(oEvent) {
                 const oModel = this.getOwnerComponent().getModel()
