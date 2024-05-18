@@ -47,10 +47,10 @@
                                     title="{ID}"
                                     text="{Name} - {Description}"/>
                                 <Text text="{Supplier/Name}" />
-                                
                                 <Text text="{Price} EUR" />
-                                <Text text="{ReleaseDate} PC" />
-                                <Text text="{Rating} PC "/>
+                                <Text text="{ReleaseDate}" />
+                                <!-- <Text text="{Rating}"/> -->
+                                <Input type="Number" value="{Rating}" valueLiveUpdate="true" liveChange="validateRating" width="10px"/>
                             </cells>
                         </ColumnListItem>
                     </items>
@@ -101,7 +101,6 @@
                                     title="{ProductName}"
                                     text="{ProductID}"/>
                                 <Text text="{Supplier/CompanyName}" />
-                                
                                 <Text text="{UnitPrice} EUR" />
                                 <Text text="{UnitsOnOrder} PC" />
                                 <Text text="{UnitsInStock} PC  >"/>
@@ -220,7 +219,7 @@
     <footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button type="Accept" text="Order Product" press="onOrder"/>
+				<Button type="Accept" text="Upate Product" press="updateProduct"/>
 				<Button type="Reject" text="Remove Product" press="onRemove"/>
 			</OverflowToolbar>
 		</footer>

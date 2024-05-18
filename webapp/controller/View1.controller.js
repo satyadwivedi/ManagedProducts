@@ -193,6 +193,51 @@ sap.ui.define([
                 this._pDialog.then(function(a){
                     a.close();
                 })
+            },
+
+            updateProduct: function(oEvent) {
+                let oMainTable = this.getView().byId("idProductsTable");
+                //let sPID = oMainTable.getSelectedItems()[0].getBindingContext().getProperty('ID')
+               let oProduct =  this.getView().byId("idProductsTable").getSelectedItems()[0].getBindingContext().getObject()
+               let sPID = oProduct.ID
+
+                let data = {
+                    "Name": oProduct.Name,
+                    "Description": oProduct.Description,
+                    "ReleaseDate": oProduct.ReleaseDate,
+                    "DiscontinuedDate": null,
+                    "Rating": oProduct.Rating,
+                    "Price": oProduct.Price
+                };
+
+                const oModel = this.getOwnerComponent().getModel()
+
+                oModel.sDefaultUpdateMethod = 'PUT'
+
+                //oModel.setUseBatch(true);
+
+                oModel.update('/Products(' + sPID + ')', data, {
+                    success: function(oData, oResponse ) {
+                        MessageToast.show('record updated')
+                    }, 
+                    error: function(oError) {
+                        console.log('error update', oError)
+                        MessageToast.show('Error in updating')
+                    }
+                })
+            },
+
+
+            validateRating: function(oEvent) {
+               let r =  oEvent.getParameters().value;
+               if(r) {
+                    r = Number(r)
+                    if(r <= 5 && r >= 0 ){
+                        console.log('r=', r)
+                    } else{
+                        oEvent.getSource().setValue('0')
+                    }
+               } 
             }
 
 
